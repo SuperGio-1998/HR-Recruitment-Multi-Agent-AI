@@ -1,0 +1,120 @@
+{
+  "job_analysis": {
+    "job_title": "Senior QA Engineer",
+    "experience_required": "",
+    "required_skills": [
+      {
+        "skill": "Selenium"
+      }
+    ],
+    "preferred_skills": [
+      {
+        "skill": "API Testing"
+      }
+    ],
+    "responsibilities": [
+      "Execute test cases"
+    ]
+  },
+  "candidate_profile": {
+    "candidate_name": "Doctor Singed",
+    "years_experience": "Senior Engineer",
+    "skills": [
+      {
+        "skill": "Selenium"
+      },
+      {
+        "skill": "API Testing"
+      },
+      {
+        "skill": "SQL"
+      },
+      {
+        "skill": "Python"
+      },
+      {
+        "skill": "Communication"
+      }
+    ],
+    "education": "",
+    "certifications": [
+      {
+        "certification": "ISTQB Foundation Level"
+      },
+      {
+        "certification": "CompTia ++"
+      },
+      {
+        "certification": "Advanced Data Analytics"
+      }
+    ],
+    "projects": [
+      {
+        "project": "Online Banking System"
+      },
+      {
+        "project": "POS Monitoring System"
+      },
+      {
+        "project": "Student Attendance System"
+      },
+      {
+        "project": "Delivery App Management"
+      }
+    ]
+  },
+  "skills_evaluation": {
+    "overall_match_percentage": 60,
+    "matched_skills": [
+      {
+        "skill": "Selenium"
+      },
+      {
+        "skill": "API Testing"
+      }
+    ],
+    "missing_skills": [
+      {
+        "skill": "experience_required"
+      },
+      {
+        "skill": "responsibilities"
+      }
+    ],
+    "recommendation": "Consider additional experience and test case execution skills."
+  },
+  "interview_questions": {
+    "technical_questions": [
+      {
+        "question": "Can you explain the concept of page object model in Selenium?",
+        "category": "Selenium"
+      },
+      {
+        "question": "How do you approach API testing for a new feature?",
+        "category": "API Testing"
+      }
+    ],
+    "assessment_focus": [
+      {
+        "focus": "Test case execution and automation skills"
+      }
+    ],
+    "recommendation": "Consider additional experience in test case execution."
+  },
+  "hiring_decision": {
+    "candidate_name": "Doctor Singed",
+    "final_decision": "Hire",
+    "confidence_score": 80,
+    "strengths": [
+      {
+        "description": "Strong technical skills in Selenium and API Testing"
+      }
+    ],
+    "concerns": [
+      {
+        "description": "Limited experience in test case execution and automation skills"
+      }
+    ],
+    "reason": "Strong technical skills, but additional experience required to fill the gap"
+  }
+}
