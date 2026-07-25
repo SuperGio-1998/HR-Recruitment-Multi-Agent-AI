@@ -5,20 +5,42 @@
     "required_skills": [
       {
         "skill": "Selenium"
+      },
+      {
+        "skill": "API Testing"
+      },
+      {
+        "skill": "SQL"
+      },
+      {
+        "skill": "Python"
+      },
+      {
+        "skill": "Banking Experience"
+      },
+      {
+        "skill": "Automation"
+      },
+      {
+        "skill": "Testing"
       }
     ],
     "preferred_skills": [
       {
-        "skill": "API Testing"
+        "skill": ""
       }
     ],
     "responsibilities": [
-      "Execute test cases"
+      "Execute functional and regression testing",
+      "Perform API testing using Postman",
+      "Create test scenarios and test cases",
+      "Participate in Agile ceremonies",
+      "Analyze defects and collaborate with developers"
     ]
   },
   "candidate_profile": {
-    "candidate_name": "Doctor Singed",
-    "years_experience": "Senior Engineer",
+    "candidate_name": "Jacob Ozbourne",
+    "years_experience": "Senior QA Engineer",
     "skills": [
       {
         "skill": "Selenium"
@@ -31,57 +53,34 @@
       },
       {
         "skill": "Python"
-      },
-      {
-        "skill": "Communication"
       }
     ],
     "education": "",
-    "certifications": [
-      {
-        "certification": "ISTQB Foundation Level"
-      },
-      {
-        "certification": "CompTia ++"
-      },
-      {
-        "certification": "Advanced Data Analytics"
-      }
-    ],
-    "projects": [
-      {
-        "project": "Online Banking System"
-      },
-      {
-        "project": "POS Monitoring System"
-      },
-      {
-        "project": "Student Attendance System"
-      },
-      {
-        "project": "Delivery App Management"
-      }
-    ]
+    "certifications": [],
+    "projects": []
   },
   "skills_evaluation": {
-    "overall_match_percentage": 60,
+    "overall_match_percentage": 80,
     "matched_skills": [
       {
         "skill": "Selenium"
       },
       {
         "skill": "API Testing"
+      },
+      {
+        "skill": "SQL"
+      },
+      {
+        "skill": "Python"
       }
     ],
     "missing_skills": [
       {
-        "skill": "experience_required"
-      },
-      {
-        "skill": "responsibilities"
+        "skill": "Testing"
       }
     ],
-    "recommendation": "Consider additional experience and test case execution skills."
+    "recommendation": "Strong candidate with required skills, but lacks banking experience."
   },
   "interview_questions": {
     "technical_questions": [
@@ -90,31 +89,39 @@
         "category": "Selenium"
       },
       {
-        "question": "How do you approach API testing for a new feature?",
+        "question": "How do you approach API testing using Postman?",
         "category": "API Testing"
+      },
+      {
+        "question": "What is the difference between SQL and NoSQL databases?",
+        "category": "SQL"
+      },
+      {
+        "question": "Can you write a simple Python script to automate a task?",
+        "category": "Python"
       }
     ],
     "assessment_focus": [
       {
-        "focus": "Test case execution and automation skills"
+        "focus": "Lack of banking experience. Can the candidate explain the importance of banking experience in QA?"
       }
     ],
-    "recommendation": "Consider additional experience in test case execution."
+    "recommendation": "Strong candidate with required skills, but lacks banking experience."
   },
   "hiring_decision": {
-    "candidate_name": "Doctor Singed",
+    "candidate_name": "Jacob Ozbourne",
     "final_decision": "Hire",
     "confidence_score": 80,
     "strengths": [
       {
-        "description": "Strong technical skills in Selenium and API Testing"
+        "description": "Strong technical skills"
       }
     ],
     "concerns": [
       {
-        "description": "Limited experience in test case execution and automation skills"
+        "description": "Lack of banking experience"
       }
     ],
-    "reason": "Strong technical skills, but additional experience required to fill the gap"
+    "reason": "Strong candidate with required skills, but lacks banking experience."
   }
 }

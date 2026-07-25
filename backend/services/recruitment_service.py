@@ -1,6 +1,13 @@
 from tools.resume_parser import extract_resume_text
 from orchestrator.hr_orchestrator import HROrchestrator
 
+from backend.database.database import SessionLocal
+
+from backend.database.crud import (
+    create_candidate,
+    create_evaluation
+)
+
 
 class RecruitmentService:
 
@@ -17,6 +24,7 @@ class RecruitmentService:
         resume_file_path
     ):
 
+
         resume_text = extract_resume_text(
             resume_file_path
         )
@@ -26,6 +34,62 @@ class RecruitmentService:
             job_requirement,
             resume_text
         )
+
+
+
+        db = SessionLocal()
+
+
+        try:
+
+            candidate_profile = result[
+                "candidate_profile"
+            ]
+
+
+            skills_evaluation = result[
+                "skills_evaluation"
+            ]
+
+
+            hiring_decision = result[
+                "hiring_decision"
+            ]
+
+
+
+            candidate = create_candidate(
+                db=db,
+                candidate_name=candidate_profile[
+                    "candidate_name"
+                ],
+                resume_filename=resume_file_path.split("\\")[-1]
+            )
+
+
+
+            create_evaluation(
+                db=db,
+                candidate_id=candidate.id,
+                match_percentage=skills_evaluation[
+                    "overall_match_percentage"
+                ],
+                decision=hiring_decision[
+                    "final_decision"
+                ],
+                confidence_score=hiring_decision[
+                    "confidence_score"
+                ],
+                reason=hiring_decision[
+                    "reason"
+                ]
+            )
+
+
+        finally:
+
+            db.close()
+
 
 
         return result

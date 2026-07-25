@@ -5,9 +5,7 @@ from agents.interview_question_agent import InterviewQuestionAgent
 from agents.hiring_decision_agent import HiringDecisionAgent
 
 from pathlib import Path
-
 import json
-
 
 
 class HROrchestrator:
@@ -102,18 +100,13 @@ class HROrchestrator:
 
         final_output = {
 
-
             "job_analysis": job_json,
-
 
             "candidate_profile": resume_json,
 
-
             "skills_evaluation": skills_json,
 
-
             "interview_questions": interview_json,
-
 
             "hiring_decision": decision_json
 
@@ -162,93 +155,3 @@ class HROrchestrator:
 
 
         return final_output
-
-
-
-
-
-if __name__ == "__main__":
-
-
-    orchestrator = HROrchestrator()
-
-
-
-    job_requirement = """
-
-    Hiring: Senior QA Engineer
-
-
-    Required Skills:
-
-    Selenium
-
-    API Testing
-
-    SQL
-
-    Python
-
-    Banking Experience
-
-
-
-    Responsibilities:
-
-    - Execute test cases
-
-    - Perform API testing
-
-    - Participate in Agile ceremonies
-
-    """
-
-
-
-    resume = """
-
-    Name: John Doe
-
-
-    Experience:
-
-    5 years Software QA Engineer
-
-
-    Skills:
-
-    Selenium
-
-    API Testing
-
-    SQL
-
-    Python
-
-
-
-    Education:
-
-    BS Information Technology
-
-
-
-    Certification:
-
-    ISTQB Foundation Level
-
-
-
-    Project:
-
-    Online Banking System
-
-
-    """
-
-
-
-    orchestrator.execute(
-        job_requirement,
-        resume
-    )

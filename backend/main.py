@@ -1,11 +1,14 @@
-from fastapi import FastAPI, UploadFile, File, Form
-from pydantic import BaseModel
+from fastapi import FastAPI, UploadFile, File, Form, Query
+from fastapi.middleware.cors import CORSMiddleware
 
-import shutil
 import os
+import shutil
 
 from backend.services.recruitment_service import RecruitmentService
-from tools.resume_parser import extract_resume_text
+
+from backend.database.database import SessionLocal
+from backend.database.models import Candidate, Evaluation
+
 
 
 app = FastAPI(
@@ -14,10 +17,23 @@ app = FastAPI(
 )
 
 
-class CandidateRequest(BaseModel):
 
-    job_requirement: str
-    resume: str
+# Allow React Frontend Connection
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+
+recruitment_service = RecruitmentService()
+
+
 
 
 
@@ -30,71 +46,16 @@ def home():
 
 
 
-@app.post("/analyze-candidate")
-def analyze_candidate(
-    request: CandidateRequest
-):
-
-    service = RecruitmentService()
 
 
-    result = service.orchestrator.execute(
-        request.job_requirement,
-        request.resume
-    )
-
-
-    return result
-
-
-
-@app.post("/upload-resume")
-async def upload_resume(
+@app.post("/evaluate-resume")
+async def evaluate_resume(
+    job_requirement: str = Form(...),
     file: UploadFile = File(...)
 ):
 
     upload_folder = "uploads"
 
-    os.makedirs(
-        upload_folder,
-        exist_ok=True
-    )
-
-
-    file_path = f"{upload_folder}/{file.filename}"
-
-
-    with open(file_path, "wb") as buffer:
-
-        shutil.copyfileobj(
-            file.file,
-            buffer
-        )
-
-
-    resume_text = extract_resume_text(
-        file_path
-    )
-
-
-    return {
-        "filename": file.filename,
-        "extracted_text": resume_text
-    }
-
-
-
-@app.post("/evaluate-resume")
-async def evaluate_resume(
-    job_requirement: str = Form(
-        ...
-    ),
-    file: UploadFile = File(
-        ...
-    )
-):
-
-    upload_folder = "uploads"
 
     os.makedirs(
         upload_folder,
@@ -113,10 +74,7 @@ async def evaluate_resume(
         )
 
 
-    service = RecruitmentService()
-
-
-    result = service.evaluate_candidate(
+    result = recruitment_service.evaluate_candidate(
         job_requirement,
         file_path
     )
@@ -126,13 +84,296 @@ async def evaluate_resume(
 
 
 
-@app.post("/test-upload")
-async def test_upload(
-    job_requirement: str = Form(...),
-    file: UploadFile = File(...)
+
+
+
+
+@app.get("/candidates")
+def get_candidates(
+
+    name: str | None = Query(default=None),
+
+    decision: str | None = Query(default=None),
+
+    min_score: int | None = Query(default=None),
+
+    page: int = Query(
+        default=1,
+        ge=1
+    ),
+
+    limit: int = Query(
+        default=10,
+        ge=1,
+        le=100
+    ),
+
+    sort: str | None = Query(
+        default=None
+    )
+
 ):
 
-    return {
-        "job_requirement": job_requirement,
-        "filename": file.filename
-    }
+
+    db = SessionLocal()
+
+
+    try:
+
+
+        candidates = db.query(
+            Candidate
+        ).all()
+
+
+
+        filtered_candidates = []
+
+
+
+        for candidate in candidates:
+
+
+            evaluation = db.query(
+                Evaluation
+            ).filter(
+                Evaluation.candidate_id == candidate.id
+            ).first()
+
+
+
+            if name:
+
+                if name.lower() not in candidate.candidate_name.lower():
+
+                    continue
+
+
+
+            if decision:
+
+                if not evaluation:
+
+                    continue
+
+
+                if evaluation.decision.lower() != decision.lower():
+
+                    continue
+
+
+
+            if min_score:
+
+                if not evaluation:
+
+                    continue
+
+
+                if evaluation.match_percentage < min_score:
+
+                    continue
+
+
+
+            filtered_candidates.append({
+
+                "id": candidate.id,
+
+                "candidate_name": candidate.candidate_name,
+
+                "resume_filename": candidate.resume_filename,
+
+                "created_at": candidate.created_at,
+
+                "match_percentage":
+                    evaluation.match_percentage
+                    if evaluation else None,
+
+                "decision":
+                    evaluation.decision
+                    if evaluation else None,
+
+                "confidence_score":
+                    evaluation.confidence_score
+                    if evaluation else None
+
+            })
+
+
+
+
+
+        # Sorting
+
+        if sort == "highest_score":
+
+            filtered_candidates.sort(
+
+                key=lambda x:
+                    x["match_percentage"]
+                    if x["match_percentage"] is not None
+                    else 0,
+
+                reverse=True
+
+            )
+
+
+
+        elif sort == "lowest_score":
+
+            filtered_candidates.sort(
+
+                key=lambda x:
+                    x["match_percentage"]
+                    if x["match_percentage"] is not None
+                    else 0
+
+            )
+
+
+
+        elif sort == "latest":
+
+            filtered_candidates.sort(
+
+                key=lambda x:
+                    x["created_at"],
+
+                reverse=True
+
+            )
+
+
+
+
+
+        total_candidates = len(
+            filtered_candidates
+        )
+
+
+
+        start = (
+            page - 1
+        ) * limit
+
+
+
+        end = start + limit
+
+
+
+        paginated_result = filtered_candidates[
+            start:end
+        ]
+
+
+
+        return {
+
+            "page": page,
+
+            "limit": limit,
+
+            "total_candidates": total_candidates,
+
+            "results": paginated_result
+
+        }
+
+
+
+    finally:
+
+        db.close()
+
+
+
+
+
+
+
+@app.get("/candidate/{candidate_id}")
+def get_candidate_detail(candidate_id: int):
+
+
+    db = SessionLocal()
+
+
+    try:
+
+
+        candidate = db.query(
+            Candidate
+        ).filter(
+            Candidate.id == candidate_id
+        ).first()
+
+
+
+        if not candidate:
+
+            return {
+
+                "message": "Candidate not found"
+
+            }
+
+
+
+        evaluation = db.query(
+            Evaluation
+        ).filter(
+            Evaluation.candidate_id == candidate.id
+        ).first()
+
+
+
+        return {
+
+
+            "candidate": {
+
+                "id": candidate.id,
+
+                "candidate_name": candidate.candidate_name,
+
+                "resume_filename": candidate.resume_filename,
+
+                "created_at": candidate.created_at
+
+            },
+
+
+            "evaluation": {
+
+                "match_percentage":
+                    evaluation.match_percentage
+                    if evaluation else None,
+
+
+                "decision":
+                    evaluation.decision
+                    if evaluation else None,
+
+
+                "confidence_score":
+                    evaluation.confidence_score
+                    if evaluation else None,
+
+
+                "reason":
+                    evaluation.reason
+                    if evaluation else None
+
+            }
+
+        }
+
+
+
+    finally:
+
+        db.close()
