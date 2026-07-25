@@ -4,6 +4,8 @@ from agents.skills_matching_agent import SkillsMatchingAgent
 from agents.interview_question_agent import InterviewQuestionAgent
 from agents.hiring_decision_agent import HiringDecisionAgent
 
+from schemas.ai_intelligence_schema import AIIntelligenceOutput
+
 from pathlib import Path
 import json
 
@@ -98,6 +100,78 @@ class HROrchestrator:
 
 
 
+        print("\n===== AI INTELLIGENCE LAYER =====")
+
+
+        overall_score = int(
+            (
+                skills_json["overall_match_percentage"]
+                +
+                decision_json["confidence_score"]
+            )
+            /
+            2
+        )
+
+
+        intelligence_data = {
+
+            "candidate_name": decision_json["candidate_name"],
+
+            "decision": decision_json["final_decision"],
+
+            "confidence_score": decision_json["confidence_score"],
+
+            "score_breakdown": {
+
+                "skills_score": skills_json["overall_match_percentage"],
+
+                "experience_score": decision_json["confidence_score"],
+
+                "overall_score": overall_score
+
+            },
+
+            "strengths": [
+
+                item["description"]
+
+                for item in decision_json["strengths"]
+
+            ],
+
+            "concerns": [
+
+                item["description"]
+
+                for item in decision_json["concerns"]
+
+            ],
+
+            "recommendation": decision_json["reason"]
+
+        }
+
+
+
+        validated_intelligence = AIIntelligenceOutput.model_validate(
+            intelligence_data
+        )
+
+
+        intelligence_json = validated_intelligence.model_dump()
+
+
+
+        print(
+            json.dumps(
+                intelligence_json,
+                indent=2
+            )
+        )
+
+
+
         final_output = {
 
             "job_analysis": job_json,
@@ -108,7 +182,9 @@ class HROrchestrator:
 
             "interview_questions": interview_json,
 
-            "hiring_decision": decision_json
+            "hiring_decision": decision_json,
+
+            "ai_intelligence": intelligence_json
 
         }
 
@@ -126,8 +202,6 @@ class HROrchestrator:
 
 
 
-        # Save HR Report
-
         report_folder = Path("reports")
 
         report_folder.mkdir(
@@ -135,7 +209,9 @@ class HROrchestrator:
         )
 
 
+
         report_file = report_folder / "candidate_evaluation.json"
+
 
 
         report_file.write_text(
@@ -147,7 +223,9 @@ class HROrchestrator:
         )
 
 
+
         print("\n===== REPORT GENERATED =====")
+
 
         print(
             f"Saved: {report_file}"

@@ -4,11 +4,9 @@ from datetime import datetime
 from backend.database.database import Base
 
 
-
 class Candidate(Base):
 
     __tablename__ = "candidates"
-
 
     id = Column(
         Integer,
@@ -16,16 +14,13 @@ class Candidate(Base):
         index=True
     )
 
-
     candidate_name = Column(
         String
     )
 
-
     resume_filename = Column(
         String
     )
-
 
     created_at = Column(
         DateTime,
@@ -33,11 +28,9 @@ class Candidate(Base):
     )
 
 
-
 class Evaluation(Base):
 
     __tablename__ = "evaluations"
-
 
     id = Column(
         Integer,
@@ -45,31 +38,25 @@ class Evaluation(Base):
         index=True
     )
 
-
     candidate_id = Column(
         Integer
     )
-
 
     match_percentage = Column(
         Integer
     )
 
-
     decision = Column(
         String
     )
-
 
     confidence_score = Column(
         Integer
     )
 
-
     reason = Column(
         Text
     )
-
 
     created_at = Column(
         DateTime,

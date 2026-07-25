@@ -19,15 +19,18 @@
         "skill": "Banking Experience"
       },
       {
-        "skill": "Automation"
+        "skill": "Automation Testing"
       },
       {
-        "skill": "Testing"
+        "skill": "Functional Testing"
       }
     ],
     "preferred_skills": [
       {
-        "skill": ""
+        "skill": "Communication Skills"
+      },
+      {
+        "skill": "API Testing"
       }
     ],
     "responsibilities": [
@@ -35,12 +38,14 @@
       "Perform API testing using Postman",
       "Create test scenarios and test cases",
       "Participate in Agile ceremonies",
-      "Analyze defects and collaborate with developers"
+      "Analyze defects and collaborate with developers",
+      "Create automation script",
+      "Collaborating with cross-functional team"
     ]
   },
   "candidate_profile": {
-    "candidate_name": "Jacob Ozbourne",
-    "years_experience": "Senior QA Engineer",
+    "candidate_name": "Yasuo Style",
+    "years_experience": "10",
     "skills": [
       {
         "skill": "Selenium"
@@ -53,6 +58,24 @@
       },
       {
         "skill": "Python"
+      },
+      {
+        "skill": "Banking Experience"
+      },
+      {
+        "skill": "Automation Testing"
+      },
+      {
+        "skill": "Functional Testing"
+      },
+      {
+        "skill": "Communication Skills"
+      },
+      {
+        "skill": "API Testing"
+      },
+      {
+        "skill": "AI Agentic"
       }
     ],
     "education": "",
@@ -73,55 +96,86 @@
       },
       {
         "skill": "Python"
+      },
+      {
+        "skill": "Banking Experience"
+      },
+      {
+        "skill": "Automation Testing"
+      },
+      {
+        "skill": "Functional Testing"
+      },
+      {
+        "skill": "Communication Skills"
       }
     ],
     "missing_skills": [
       {
-        "skill": "Testing"
+        "skill": "Agile Ceremonies"
+      },
+      {
+        "skill": "Defect Analysis"
+      },
+      {
+        "skill": "AI Agentic"
       }
     ],
-    "recommendation": "Strong candidate with required skills, but lacks banking experience."
+    "recommendation": "Strong candidate for Senior QA Engineer role."
   },
   "interview_questions": {
     "technical_questions": [
       {
-        "question": "Can you explain the concept of page object model in Selenium?",
-        "category": "Selenium"
+        "question": "Can you explain the difference between functional and regression testing?",
+        "category": "Technical"
       },
       {
         "question": "How do you approach API testing using Postman?",
-        "category": "API Testing"
+        "category": "Technical"
       },
       {
-        "question": "What is the difference between SQL and NoSQL databases?",
-        "category": "SQL"
-      },
-      {
-        "question": "Can you write a simple Python script to automate a task?",
-        "category": "Python"
+        "question": "What is your experience with automation testing tools like Selenium?",
+        "category": "Technical"
       }
     ],
     "assessment_focus": [
       {
-        "focus": "Lack of banking experience. Can the candidate explain the importance of banking experience in QA?"
+        "focus": "Behavioral"
       }
     ],
-    "recommendation": "Strong candidate with required skills, but lacks banking experience."
+    "recommendation": "Strong candidate for Senior QA Engineer role."
   },
   "hiring_decision": {
-    "candidate_name": "Jacob Ozbourne",
+    "candidate_name": "Yasuo Style",
     "final_decision": "Hire",
-    "confidence_score": 80,
+    "confidence_score": 90,
     "strengths": [
       {
-        "description": "Strong technical skills"
+        "description": "Strong technical skills and experience in QA engineering"
       }
     ],
     "concerns": [
       {
-        "description": "Lack of banking experience"
+        "description": "Lack of Agile Ceremonies and Defect Analysis skills"
       }
     ],
-    "reason": "Strong candidate with required skills, but lacks banking experience."
+    "reason": "Strong candidate for Senior QA Engineer role, but some gaps in skillset need to be addressed."
+  },
+  "ai_intelligence": {
+    "candidate_name": "Yasuo Style",
+    "decision": "Hire",
+    "confidence_score": 90,
+    "score_breakdown": {
+      "skills_score": 80,
+      "experience_score": 90,
+      "overall_score": 85
+    },
+    "strengths": [
+      "Strong technical skills and experience in QA engineering"
+    ],
+    "concerns": [
+      "Lack of Agile Ceremonies and Defect Analysis skills"
+    ],
+    "recommendation": "Strong candidate for Senior QA Engineer role, but some gaps in skillset need to be addressed."
   }
 }
