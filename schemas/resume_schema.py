@@ -16,7 +16,7 @@ class Project(BaseModel):
 class ResumeOutput(BaseModel):
     candidate_name: str
     years_experience: str
-    skills: list[Skill]
+    skills: list[Skill] = []
     education: str
-    certifications: list[Certification]
+    certifications: list[Certification] = []
     projects: list[Project]

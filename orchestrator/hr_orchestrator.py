@@ -4,6 +4,7 @@ from agents.skills_matching_agent import SkillsMatchingAgent
 from agents.interview_question_agent import InterviewQuestionAgent
 from agents.hiring_decision_agent import HiringDecisionAgent
 from agents.candidate_intelligence_agent import CandidateIntelligenceAgent
+from agents.candidate_ranking_agent import CandidateRankingAgent
 
 from schemas.ai_intelligence_schema import AIIntelligenceOutput
 
@@ -21,7 +22,7 @@ class HROrchestrator:
         self.interview_agent = InterviewQuestionAgent()
         self.decision_agent = HiringDecisionAgent()
         self.intelligence_agent = CandidateIntelligenceAgent()
-
+        self.ranking_agent = CandidateRankingAgent()
 
     def execute(
         self,
@@ -39,7 +40,6 @@ class HROrchestrator:
 
         print(json.dumps(job_json, indent=2))
 
-
         print("\n===== RESUME SCREENING AGENT =====")
 
         resume_output = self.resume_agent.analyze_resume(
@@ -49,7 +49,6 @@ class HROrchestrator:
         resume_json = json.loads(resume_output)
 
         print(json.dumps(resume_json, indent=2))
-
 
         print("\n===== SKILLS MATCHING AGENT =====")
 
@@ -61,7 +60,6 @@ class HROrchestrator:
         skills_json = json.loads(skills_output)
 
         print(json.dumps(skills_json, indent=2))
-
 
         print("\n===== INTERVIEW QUESTION AGENT =====")
 
@@ -75,7 +73,6 @@ class HROrchestrator:
 
         print(json.dumps(interview_json, indent=2))
 
-
         print("\n===== HIRING DECISION AGENT =====")
 
         decision_output = self.decision_agent.evaluate(
@@ -88,9 +85,7 @@ class HROrchestrator:
 
         print(json.dumps(decision_json, indent=2))
 
-
         print("\n===== AI INTELLIGENCE LAYER =====")
-
 
         overall_score = int(
             (
@@ -102,6 +97,16 @@ class HROrchestrator:
             2
         )
 
+        print("\n===== CANDIDATE RANKING AGENT =====")
+
+        ranking_result = self.ranking_agent.calculate_ranking(
+            skills_json["overall_match_percentage"],
+            decision_json["confidence_score"],
+            overall_score,
+            decision_json["confidence_score"]
+        )
+
+        print(json.dumps(ranking_result, indent=2))
 
         intelligence_data = {
 
@@ -111,11 +116,21 @@ class HROrchestrator:
 
             "confidence_score": decision_json["confidence_score"],
 
+            "ranking": ranking_result["ranking"],
+
+            "hire_probability": ranking_result["hire_probability"],
+
+            "candidate_category": ranking_result["candidate_category"],
+
             "score_breakdown": {
 
                 "skills_score": skills_json["overall_match_percentage"],
 
                 "experience_score": decision_json["confidence_score"],
+
+                "technical_fit_score": ranking_result["technical_fit_score"],
+
+                "interview_score": ranking_result["interview_score"],
 
                 "overall_score": overall_score
 
@@ -141,14 +156,11 @@ class HROrchestrator:
 
         }
 
-
         validated_intelligence = AIIntelligenceOutput.model_validate(
             intelligence_data
         )
 
-
         intelligence_json = validated_intelligence.model_dump()
-
 
         print(
             json.dumps(
@@ -156,7 +168,6 @@ class HROrchestrator:
                 indent=2
             )
         )
-
 
         final_output = {
 
@@ -170,13 +181,13 @@ class HROrchestrator:
 
             "hiring_decision": decision_json,
 
-            "ai_intelligence": intelligence_json
+            "ai_intelligence": intelligence_json,
+
+            "candidate_ranking": ranking_result
 
         }
 
-
         print("\n===== FINAL HR PACKAGE =====")
-
 
         print(
             json.dumps(
@@ -185,16 +196,13 @@ class HROrchestrator:
             )
         )
 
-
         report_folder = Path("reports")
 
         report_folder.mkdir(
             exist_ok=True
         )
 
-
         report_file = report_folder / "candidate_evaluation.json"
-
 
         report_file.write_text(
             json.dumps(
@@ -204,13 +212,10 @@ class HROrchestrator:
             encoding="utf-8"
         )
 
-
         print("\n===== REPORT GENERATED =====")
-
 
         print(
             f"Saved: {report_file}"
         )
-
 
         return final_output
