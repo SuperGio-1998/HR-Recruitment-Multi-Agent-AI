@@ -3,6 +3,7 @@ from agents.resume_screening_agent import ResumeScreeningAgent
 from agents.skills_matching_agent import SkillsMatchingAgent
 from agents.interview_question_agent import InterviewQuestionAgent
 from agents.hiring_decision_agent import HiringDecisionAgent
+from agents.candidate_intelligence_agent import CandidateIntelligenceAgent
 
 from schemas.ai_intelligence_schema import AIIntelligenceOutput
 
@@ -12,7 +13,6 @@ import json
 
 class HROrchestrator:
 
-
     def __init__(self):
 
         self.job_agent = JobRequirementAgent()
@@ -20,7 +20,7 @@ class HROrchestrator:
         self.skills_agent = SkillsMatchingAgent()
         self.interview_agent = InterviewQuestionAgent()
         self.decision_agent = HiringDecisionAgent()
-
+        self.intelligence_agent = CandidateIntelligenceAgent()
 
 
     def execute(
@@ -29,9 +29,7 @@ class HROrchestrator:
         resume
     ):
 
-
         print("\n===== JOB REQUIREMENT AGENT =====")
-
 
         job_output = self.job_agent.analyze_job_requirement(
             job_requirement
@@ -42,9 +40,7 @@ class HROrchestrator:
         print(json.dumps(job_json, indent=2))
 
 
-
         print("\n===== RESUME SCREENING AGENT =====")
-
 
         resume_output = self.resume_agent.analyze_resume(
             resume
@@ -55,9 +51,7 @@ class HROrchestrator:
         print(json.dumps(resume_json, indent=2))
 
 
-
         print("\n===== SKILLS MATCHING AGENT =====")
-
 
         skills_output = self.skills_agent.compare(
             job_json,
@@ -69,9 +63,7 @@ class HROrchestrator:
         print(json.dumps(skills_json, indent=2))
 
 
-
         print("\n===== INTERVIEW QUESTION AGENT =====")
-
 
         interview_output = self.interview_agent.generate_questions(
             job_json,
@@ -84,9 +76,7 @@ class HROrchestrator:
         print(json.dumps(interview_json, indent=2))
 
 
-
         print("\n===== HIRING DECISION AGENT =====")
-
 
         decision_output = self.decision_agent.evaluate(
             resume_json,
@@ -97,7 +87,6 @@ class HROrchestrator:
         decision_json = json.loads(decision_output)
 
         print(json.dumps(decision_json, indent=2))
-
 
 
         print("\n===== AI INTELLIGENCE LAYER =====")
@@ -153,7 +142,6 @@ class HROrchestrator:
         }
 
 
-
         validated_intelligence = AIIntelligenceOutput.model_validate(
             intelligence_data
         )
@@ -162,14 +150,12 @@ class HROrchestrator:
         intelligence_json = validated_intelligence.model_dump()
 
 
-
         print(
             json.dumps(
                 intelligence_json,
                 indent=2
             )
         )
-
 
 
         final_output = {
@@ -189,7 +175,6 @@ class HROrchestrator:
         }
 
 
-
         print("\n===== FINAL HR PACKAGE =====")
 
 
@@ -201,7 +186,6 @@ class HROrchestrator:
         )
 
 
-
         report_folder = Path("reports")
 
         report_folder.mkdir(
@@ -209,9 +193,7 @@ class HROrchestrator:
         )
 
 
-
         report_file = report_folder / "candidate_evaluation.json"
-
 
 
         report_file.write_text(
@@ -221,7 +203,6 @@ class HROrchestrator:
             ),
             encoding="utf-8"
         )
-
 
 
         print("\n===== REPORT GENERATED =====")
