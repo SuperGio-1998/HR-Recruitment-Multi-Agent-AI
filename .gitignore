@@ -27,3 +27,6 @@ build/
 .idea/
 
 # Logs
+
+# Generated AI reports
+reports/
