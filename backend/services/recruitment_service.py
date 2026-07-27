@@ -55,7 +55,10 @@ class RecruitmentService:
             hiring_decision = result[
                 "hiring_decision"
             ]
-
+            
+            candidate_ranking = result[
+                "candidate_ranking"
+            ]           
 
 
             candidate = create_candidate(
@@ -82,7 +85,31 @@ class RecruitmentService:
                 ],
                 reason=hiring_decision[
                     "reason"
-                ]
+                ],
+                
+                ranking=candidate_ranking[
+                    "ranking"
+                ],
+
+                overall_score=candidate_ranking[
+                    "overall_score"
+                ],
+
+                candidate_category=candidate_ranking[
+                    "candidate_category"
+                ],
+
+                hire_probability=candidate_ranking[
+                    "hire_probability"
+                ],
+
+                technical_fit_score=candidate_ranking[
+                    "technical_fit_score"
+                ],
+
+                interview_score=candidate_ranking[
+                    "interview_score"
+                ]   
             )
 
 

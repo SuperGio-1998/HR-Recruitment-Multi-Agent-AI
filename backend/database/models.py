@@ -58,6 +58,32 @@ class Evaluation(Base):
         Text
     )
 
+    # Phase 8 AI Intelligence Fields
+
+    ranking = Column(
+        String
+    )
+
+    overall_score = Column(
+        Integer
+    )
+
+    candidate_category = Column(
+        String
+    )
+
+    hire_probability = Column(
+        Integer
+    )
+
+    technical_fit_score = Column(
+        Integer
+    )
+
+    interview_score = Column(
+        Integer
+    )
+
     created_at = Column(
         DateTime,
         default=datetime.utcnow

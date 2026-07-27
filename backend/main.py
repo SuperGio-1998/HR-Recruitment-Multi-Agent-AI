@@ -124,7 +124,15 @@ def get_candidates(
 
         candidates = db.query(
             Candidate
+        ).join(
+            Evaluation,
+            Candidate.id == Evaluation.candidate_id
+        ).order_by(
+            Evaluation.overall_score.desc(),
+            Evaluation.hire_probability.desc(),
+            Evaluation.created_at.desc()
         ).all()
+        
 
 
 
@@ -197,6 +205,35 @@ def get_candidates(
 
                 "confidence_score":
                     evaluation.confidence_score
+                    if evaluation else None,
+                    
+                "ranking":
+                    evaluation.ranking
+                    if evaluation else None,
+
+
+                "overall_score":
+                    evaluation.overall_score
+                    if evaluation else None,
+
+
+                "candidate_category":
+                    evaluation.candidate_category
+                    if evaluation else None,
+
+
+                "hire_probability":
+                    evaluation.hire_probability
+                    if evaluation else None,
+
+
+                "technical_fit_score":
+                    evaluation.technical_fit_score
+                    if evaluation else None,
+
+
+                "interview_score":
+                    evaluation.interview_score
                     if evaluation else None
 
             })

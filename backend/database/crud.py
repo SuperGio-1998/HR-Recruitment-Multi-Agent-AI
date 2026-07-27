@@ -27,7 +27,13 @@ def create_evaluation(
     match_percentage: int,
     decision: str,
     confidence_score: int,
-    reason: str
+    reason: str,
+    ranking: str,
+    overall_score: int,
+    candidate_category: str,
+    hire_probability: int,
+    technical_fit_score: int,
+    interview_score: int
 ):
 
     evaluation = Evaluation(
@@ -35,7 +41,18 @@ def create_evaluation(
         match_percentage=match_percentage,
         decision=decision,
         confidence_score=confidence_score,
-        reason=reason
+        reason=reason,
+        ranking=ranking,
+
+        overall_score=overall_score,
+
+        candidate_category=candidate_category,
+
+        hire_probability=hire_probability,
+
+        technical_fit_score=technical_fit_score,
+
+        interview_score=interview_score
     )
 
     db.add(evaluation)
