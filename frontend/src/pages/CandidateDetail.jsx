@@ -18,13 +18,11 @@ function CandidateDetail() {
 
 
 
-
     useEffect(() => {
 
         loadCandidate();
 
     }, []);
-
 
 
 
@@ -69,10 +67,7 @@ function CandidateDetail() {
 
 
 
-
-
     if (loading) {
-
 
         return (
 
@@ -90,10 +85,7 @@ function CandidateDetail() {
 
 
 
-
-
     if (!candidate) {
-
 
         return (
 
@@ -111,12 +103,9 @@ function CandidateDetail() {
 
 
 
-
     const profile = candidate.candidate;
 
     const evaluation = candidate.evaluation;
-
-
 
 
 
@@ -138,8 +127,6 @@ function CandidateDetail() {
                 max-w-5xl
                 mx-auto
             ">
-
-
 
 
 
@@ -168,11 +155,7 @@ function CandidateDetail() {
 
 
 
-
-
-                <div className="
-                    space-y-8
-                ">
+                <div className="space-y-8">
 
 
 
@@ -183,10 +166,8 @@ function CandidateDetail() {
                         rounded-2xl
                         shadow-sm
                         border
-                        border-slate-200
                         p-8
                     ">
-
 
 
                         <h1 className="
@@ -201,10 +182,7 @@ function CandidateDetail() {
 
 
 
-                        <p className="
-                            text-slate-500
-                            mt-2
-                        ">
+                        <p className="text-slate-500 mt-2">
 
                             AI Generated Candidate Evaluation
 
@@ -213,100 +191,61 @@ function CandidateDetail() {
 
 
 
-
-
-
                         <div className="
                             mt-8
                             grid
-                            md:grid-cols-2
+                            md:grid-cols-3
                             gap-6
                         ">
 
 
 
-
                             <div>
 
                                 <p className="text-sm text-slate-500">
-
                                     Candidate Name
-
                                 </p>
 
-
-                                <h2 className="
-                                    text-xl
-                                    font-semibold
-                                ">
-
+                                <h2 className="text-xl font-semibold">
                                     {profile.candidate_name}
-
                                 </h2>
 
-
                             </div>
-
-
-
-
 
 
 
                             <div>
 
                                 <p className="text-sm text-slate-500">
-
                                     Resume
-
                                 </p>
 
-
                                 <h2 className="text-lg">
-
                                     {profile.resume_filename}
-
                                 </h2>
 
-
                             </div>
-
-
-
-
 
 
 
                             <div>
 
                                 <p className="text-sm text-slate-500">
-
                                     Created Date
-
                                 </p>
 
-
                                 <h2 className="text-lg">
-
                                     {profile.created_at}
-
                                 </h2>
 
-
                             </div>
-
-
-
 
 
                         </div>
 
 
 
-
                     </div>
-
-
 
 
 
@@ -315,120 +254,222 @@ function CandidateDetail() {
 
 
                     <div className="
-                        grid
-                        md:grid-cols-3
-                        gap-6
+                        bg-white
+                        rounded-2xl
+                        shadow-sm
+                        border
+                        p-8
                     ">
 
 
-
-
-
-                        <div className="
-                            bg-blue-50
-                            rounded-2xl
-                            p-6
-                            border
-                            border-blue-100
+                        <h2 className="
+                            text-2xl
+                            font-bold
+                            mb-6
                         ">
 
+                            AI Intelligence Summary
 
-                            <p className="text-sm text-slate-500">
-
-                                Match Score
-
-                            </p>
-
-
-                            <h2 className="
-                                text-4xl
-                                font-bold
-                                text-blue-700
-                            ">
-
-                                {evaluation.match_percentage}%
-
-                            </h2>
-
-
-                        </div>
-
-
-
+                        </h2>
 
 
 
 
                         <div className="
-                            bg-green-50
-                            rounded-2xl
-                            p-6
-                            border
-                            border-green-100
+                            grid
+                            md:grid-cols-4
+                            gap-5
                         ">
 
 
-                            <p className="text-sm text-slate-500">
+                            <div className="bg-indigo-50 p-5 rounded-xl">
 
-                                Decision
+                                <p className="text-sm text-slate-500">
+                                    Ranking
+                                </p>
 
-                            </p>
+                                <h2 className="text-3xl font-bold text-indigo-700">
+
+                                    {evaluation.ranking}
+
+                                </h2>
+
+                            </div>
 
 
-                            <h2 className="
-                                text-3xl
-                                font-bold
-                                text-green-700
-                            ">
 
-                                {evaluation.decision}
 
-                            </h2>
+                            <div className="bg-blue-50 p-5 rounded-xl">
+
+                                <p className="text-sm text-slate-500">
+                                    Overall Score
+                                </p>
+
+                                <h2 className="text-3xl font-bold text-blue-700">
+
+                                    {evaluation.overall_score}
+
+                                </h2>
+
+                            </div>
+
+
+
+
+
+                            <div className="bg-green-50 p-5 rounded-xl">
+
+                                <p className="text-sm text-slate-500">
+                                    Hire Probability
+                                </p>
+
+                                <h2 className="text-3xl font-bold text-green-700">
+
+                                    {evaluation.hire_probability}%
+
+                                </h2>
+
+                            </div>
+
+
+
+
+
+                            <div className="bg-purple-50 p-5 rounded-xl">
+
+                                <p className="text-sm text-slate-500">
+                                    Category
+                                </p>
+
+                                <h2 className="text-lg font-bold text-purple-700">
+
+                                    {evaluation.candidate_category}
+
+                                </h2>
+
+                            </div>
+
 
 
                         </div>
-
-
-
-
-
-
-
-                        <div className="
-                            bg-purple-50
-                            rounded-2xl
-                            p-6
-                            border
-                            border-purple-100
-                        ">
-
-
-                            <p className="text-sm text-slate-500">
-
-                                Confidence Score
-
-                            </p>
-
-
-                            <h2 className="
-                                text-4xl
-                                font-bold
-                                text-purple-700
-                            ">
-
-                                {evaluation.confidence_score}%
-
-                            </h2>
-
-
-                        </div>
-
-
 
 
 
                     </div>
 
+
+
+
+
+
+
+                    <div className="
+                        bg-white
+                        rounded-2xl
+                        shadow-sm
+                        border
+                        p-8
+                    ">
+
+
+                        <h2 className="text-2xl font-bold mb-6">
+
+                            Score Breakdown
+
+                        </h2>
+
+
+
+
+                        <div className="space-y-4">
+
+
+                            <div className="flex justify-between">
+
+                                <span>
+                                    Match Score
+                                </span>
+
+                                <b>
+                                    {evaluation.match_percentage}%
+                                </b>
+
+                            </div>
+
+
+
+
+                            <div className="flex justify-between">
+
+                                <span>
+                                    Technical Fit
+                                </span>
+
+                                <b>
+                                    {evaluation.technical_fit_score}%
+                                </b>
+
+                            </div>
+
+
+
+
+                            <div className="flex justify-between">
+
+                                <span>
+                                    Interview Score
+                                </span>
+
+                                <b>
+                                    {evaluation.interview_score}%
+                                </b>
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <div className="
+                        bg-white
+                        rounded-2xl
+                        shadow-sm
+                        border
+                        p-8
+                    ">
+
+
+                        <h2 className="text-2xl font-bold mb-4">
+
+                            Decision
+
+                        </h2>
+
+
+
+                        <p className="
+                            text-3xl
+                            font-bold
+                            text-green-700
+                        ">
+
+                            {evaluation.decision}
+
+                        </p>
+
+
+
+                    </div>
 
 
 
@@ -442,16 +483,11 @@ function CandidateDetail() {
                         rounded-2xl
                         shadow-sm
                         border
-                        border-slate-200
                         p-8
                     ">
 
 
-                        <h2 className="
-                            text-2xl
-                            font-bold
-                            mb-4
-                        ">
+                        <h2 className="text-2xl font-bold mb-4">
 
                             AI Reasoning
 
@@ -471,8 +507,8 @@ function CandidateDetail() {
 
 
 
-
                     </div>
+
 
 
 

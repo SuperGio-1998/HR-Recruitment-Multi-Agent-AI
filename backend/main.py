@@ -404,6 +404,35 @@ def get_candidate_detail(candidate_id: int):
 
                 "reason":
                     evaluation.reason
+                    if evaluation else None,
+                    
+                "ranking":
+                    evaluation.ranking
+                    if evaluation else None,
+
+
+                "overall_score":
+                    evaluation.overall_score
+                    if evaluation else None,
+
+
+                "candidate_category":
+                    evaluation.candidate_category
+                    if evaluation else None,
+
+
+                "hire_probability":
+                    evaluation.hire_probability
+                    if evaluation else None,
+
+
+                "technical_fit_score":
+                    evaluation.technical_fit_score
+                    if evaluation else None,
+
+
+                "interview_score":
+                    evaluation.interview_score
                     if evaluation else None
 
             }
