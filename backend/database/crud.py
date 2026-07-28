@@ -29,6 +29,9 @@ def create_evaluation(
     confidence_score: int,
     reason: str,
     ranking: str,
+    strengths: str,
+    concerns: str,
+    recommendation: str,
     overall_score: int,
     candidate_category: str,
     hire_probability: int,
@@ -43,7 +46,9 @@ def create_evaluation(
         confidence_score=confidence_score,
         reason=reason,
         ranking=ranking,
-
+        strengths=strengths,
+        concerns=concerns,
+        recommendation=recommendation,
         overall_score=overall_score,
 
         candidate_category=candidate_category,

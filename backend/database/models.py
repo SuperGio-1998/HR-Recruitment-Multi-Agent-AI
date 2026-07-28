@@ -57,6 +57,18 @@ class Evaluation(Base):
     reason = Column(
         Text
     )
+    
+    strengths = Column(
+        Text
+    )
+
+    concerns = Column(
+        Text
+    )
+
+    recommendation = Column(
+        Text
+    )
 
     # Phase 8 AI Intelligence Fields
 

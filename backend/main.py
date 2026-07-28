@@ -16,6 +16,7 @@ app = FastAPI(
     version="1.0"
 )
 
+print("LOADED MAIN.PY PHASE 9")
 
 
 # Allow React Frontend Connection
@@ -234,6 +235,20 @@ def get_candidates(
 
                 "interview_score":
                     evaluation.interview_score
+                    if evaluation else None,
+                    
+                "strengths":
+                    evaluation.strengths
+                    if evaluation else None,
+
+
+                "concerns":
+                    evaluation.concerns
+                    if evaluation else None,
+
+
+                "recommendation":
+                    evaluation.recommendation
                     if evaluation else None
 
             })
@@ -386,6 +401,8 @@ def get_candidate_detail(candidate_id: int):
 
 
             "evaluation": {
+                
+                "TEST_PHASE9": "WORKING",
 
                 "match_percentage":
                     evaluation.match_percentage
@@ -433,6 +450,18 @@ def get_candidate_detail(candidate_id: int):
 
                 "interview_score":
                     evaluation.interview_score
+                    if evaluation else None,
+                    
+                "strengths":
+                    evaluation.strengths
+                    if evaluation else None,
+
+                "concerns":
+                    evaluation.concerns
+                    if evaluation else None,
+
+                "recommendation":
+                    evaluation.recommendation
                     if evaluation else None
 
             }

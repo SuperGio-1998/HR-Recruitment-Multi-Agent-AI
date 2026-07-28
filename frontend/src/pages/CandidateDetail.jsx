@@ -107,6 +107,14 @@ function CandidateDetail() {
 
     const evaluation = candidate.evaluation;
 
+    const strengths = evaluation.strengths
+        ? JSON.parse(evaluation.strengths)
+        : [];
+
+    const concerns = evaluation.concerns
+        ? JSON.parse(evaluation.concerns)
+        : [];
+
 
 
 
@@ -496,6 +504,7 @@ function CandidateDetail() {
 
 
 
+
                         <p className="
                             text-slate-600
                             leading-relaxed
@@ -508,6 +517,215 @@ function CandidateDetail() {
 
 
                     </div>
+
+
+                    <div
+                        className="
+                            bg-white
+                            rounded-2xl
+                            shadow-sm
+                            border
+                            border-slate-200
+                            p-8
+                        "
+                    >
+
+                        <h2
+                            className="
+                                text-2xl
+                                font-bold
+                                mb-6
+                            "
+                        >
+                            AI Recommendation
+                        </h2>
+
+                        <div className="mb-8">
+
+                            <h3
+                                className="
+                                    text-lg
+                                    font-semibold
+                                    text-green-700
+                                    mb-3
+                                "
+                            >
+                                Strengths
+                            </h3>
+
+                            {
+
+                                evaluation.strengths
+
+                                ?
+
+                                JSON.parse(
+                                    evaluation.strengths
+                                ).map(
+
+                                    (item, index) => (
+
+                                        <p
+                                            key={index}
+                                            className="mb-2 text-slate-700"
+                                        >
+                                            ✓ {item}
+                                        </p>
+
+                                    )
+
+                                )
+
+                                :
+
+                                <p className="text-slate-500">
+
+                                    {
+                                        strengths.length > 0 ? (
+
+                                            <ul className="space-y-2">
+
+                                                {
+                                                    strengths.map((item, index) => (
+
+                                                        <li key={index}>
+                                                            • {item}
+                                                        </li>
+
+                                                    ))
+                                                }
+
+                                            </ul>
+
+                                        ) : (
+
+                                            <p>
+                                                No strengths available.
+                                            </p>
+
+                                        )
+                                    }
+
+                                </p>
+
+                            }
+
+                        </div>
+
+
+
+
+
+                        <div className="mb-8">
+
+                            <h3
+                                className="
+                                    text-lg
+                                    font-semibold
+                                    text-orange-600
+                                    mb-3
+                                "
+                            >
+                                {
+                                    concerns.length > 0 ? (
+
+                                        <ul className="space-y-2">
+
+                                            {
+                                                concerns.map((item, index) => (
+
+                                                    <li key={index}>
+                                                        • {item}
+                                                    </li>
+
+                                                ))
+                                            }
+
+                                        </ul>
+
+                                    ) : (
+
+                                        <p>
+                                            No major concerns identified.
+                                        </p>
+
+                                    )
+                                }
+                            </h3>
+
+                            {
+
+                                evaluation.concerns
+
+                                &&
+
+                                JSON.parse(
+                                    evaluation.concerns
+                                ).length > 0
+
+                                ?
+
+                                JSON.parse(
+                                    evaluation.concerns
+                                ).map(
+
+                                    (item, index) => (
+
+                                        <p
+                                            key={index}
+                                            className="mb-2 text-slate-700"
+                                        >
+                                            ⚠ {item}
+                                        </p>
+
+                                    )
+
+                                )
+
+                                :
+
+                                <p className="text-slate-500">
+
+                                    No major concerns identified.
+
+                                </p>
+
+                            }
+
+                        </div>
+
+
+
+
+
+                        <div>
+
+                            <h3
+                                className="
+                                    text-lg
+                                    font-semibold
+                                    text-blue-700
+                                    mb-3
+                                "
+                            >
+                                {evaluation.recommendation}
+                            </h3>
+
+                            <p
+                                className="
+                                    leading-8
+                                    text-slate-700
+                                "
+                            >
+
+                                {evaluation.recommendation}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
 
 
 
